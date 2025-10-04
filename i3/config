@@ -57,6 +57,11 @@ bindsym XF86AudioRaiseVolume exec "amixer -q sset Master,0 5%+ unmute"
 bindsym XF86AudioLowerVolume exec "amixer -q sset Master,0 5%- unmute"
 bindsym XF86AudioMute exec "amixer -q sset Master,0 toggle"
 
+# Use dbus to control spotify, next, previous and play/pause.
+bindsym XF86AudioPlay exec --no-startup-id dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.PlayPause
+bindsym XF86AudioNext exec --no-startup-id dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Next
+bindsym XF86AudioPrev exec --no-startup-id dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Previous
+
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
 
