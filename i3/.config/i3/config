@@ -1,0 +1,240 @@
+#################
+### Variables ###
+#################
+
+set $mod Mod4
+set $leftmonitor HDMI-0
+set $rightmonitor DVI-I-1
+set $ws1 "1"
+set $ws2 "2"
+set $ws3 "3"
+set $ws4 "4"
+set $ws5 "5"
+set $ws6 "6"
+set $ws7 "7"
+set $ws8 "8"
+set $ws9 "9"
+set $ws10 "10"
+
+###############
+### Signals ###
+###############
+set $refresh_i3status killall -SIGUSR1 i3status
+
+######################
+### Basic Settings ###
+######################
+
+font pango:CaskaydiaCove NFM 15px
+# smart_gaps on
+# gaps outer 5
+# gaps inner 10
+
+####################
+### Window Rules ###
+####################
+
+for_window [class="^.*"] border pixel 2
+for_window [class="^.*"] client.focused #77dd77 #285577 #ffffff #2e9ef4   #285577
+for_window [instance="Godot_Engine"] floating enable
+for_window [instance="Godot_Editor"] floating enable
+hide_edge_borders smart
+floating_modifier $mod
+tiling_drag modifier titlebar
+
+########################
+### Startup Programs ###
+########################
+exec --no-startup-id dex --autostart --environment i3
+exec_always --no-startup-id picom -b --config ~/.config/picom/picom.conf
+exec_always --no-startup-id feh --bg-scale ~/wallpapers/minimalist-pokemon-starters.png
+exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock -c 000000 --nofork
+exec --no-startup-id nm-applet
+exec --no-startup-id setxkbmap -option compose:caps 
+exec --no-startup-id /usr/libexec/gsd-xsettings
+
+###########################
+### Functional Keybinds ###
+###########################
+
+# With PulseAudio:
+# bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +10% && $refresh_i3status
+# bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -10% && $refresh_i3status
+# bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle && $refresh_i3status
+# bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute @DEFAULT_SOURCE@ toggle && $refresh_i3status
+
+# With ALSA:
+bindsym XF86AudioRaiseVolume exec "amixer -q sset Master,0 5%+ unmute"; exec pkill -SIGRTMIN+10 i3blocks
+bindsym XF86AudioLowerVolume exec "amixer -q sset Master,0 5%- unmute"; exec pkill -SIGRTMIN+10 i3blocks
+bindsym XF86AudioMute exec "amixer -q sset Master,0 toggle"
+
+# Media keys
+bindsym XF86AudioPlay exec --no-startup-id playerctl play-pause
+bindsym XF86AudioNext exec --no-startup-id playerctl next
+bindsym XF86AudioPrev exec --no-startup-id playerctl previous
+
+# Control screen brightness
+bindsym XF86MonBrightnessUp exec --no-startup-id xrandr --output $leftmonitor --brightness `echo "$(xrandr --verbose | grep -i brightness | cut -f2 -d ' ' | head -n1) + 0.1" | bc -l`; exec pkill -SIGRTMIN+11 i3blocks
+bindsym XF86MonBrightnessDown exec --no-startup-id xrandr --output $leftmonitor --brightness `echo "$(xrandr --verbose | grep -i brightness | cut -f2 -d ' ' | head -n1) - 0.1" | bc -l`; exec pkill -SIGRTMIN+11 i3blocks
+
+###################
+### Keybindings ###
+###################
+
+# Applications
+bindsym $mod+Return exec alacritty
+bindsym Print exec flameshot gui
+bindsym $mod+semicolon exec --no-startup-id rofi -show drun -show-icons -lines 8 -columns 3 -eh 2 -width 74 -padding 200 -opacity "40"
+
+# Actions
+bindsym $mod+Shift+q kill
+bindsym $mod+Shift+x exec --no-startup-id i3lock -c 000000 --show-failed-attempts
+bindsym $mod+Shift+c reload
+bindsym $mod+Shift+r restart
+bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -B 'Yes, exit i3' 'i3-msg exit'"
+
+# Focus windows
+bindsym $mod+h focus left
+bindsym $mod+j focus down
+bindsym $mod+k focus up
+bindsym $mod+l focus right
+bindsym $mod+Left focus left
+bindsym $mod+Down focus down
+bindsym $mod+Up focus up
+bindsym $mod+Right focus right
+
+# Move windows
+bindsym $mod+Shift+h move left
+bindsym $mod+Shift+j move down
+bindsym $mod+Shift+k move up
+bindsym $mod+Shift+l move right
+bindsym $mod+Shift+Left move left
+bindsym $mod+Shift+Down move down
+bindsym $mod+Shift+Up move up
+bindsym $mod+Shift+Right move right
+
+# Split
+bindsym $mod+z split h
+bindsym $mod+v split v
+
+# Layout
+bindsym $mod+f fullscreen toggle
+bindsym $mod+s layout stacking
+bindsym $mod+w layout tabbed
+bindsym $mod+e layout toggle split
+bindsym $mod+Shift+space floating toggle
+bindsym $mod+space focus mode_toggle
+bindsym $mod+a focus parent
+bindsym $mod+d focus child
+
+# Monitor management
+bindsym $mod+F1 exec xrandr --output $leftmonitor --auto --primary --output $rightmonitor --off
+bindsym $mod+F2 exec xrandr --output $leftmonitor --auto --primary --output $rightmonitor --auto --right-of $leftmonitor
+
+# Assign workspaces to monitors
+workspace 1 output $leftmonitor
+workspace 2 output $leftmonitor
+workspace 3 output $leftmonitor
+workspace 4 output $leftmonitor
+workspace 5 output $leftmonitor
+workspace 6 output $rightmonitor
+workspace 7 output $rightmonitor
+workspace 8 output $rightmonitor
+workspace 9 output $rightmonitor
+workspace 10 output $rightmonitor
+
+# Switch to workspace
+bindsym $mod+u workspace number $ws1
+bindsym $mod+i workspace number $ws2
+bindsym $mod+o workspace number $ws3
+bindsym $mod+p workspace number $ws4
+bindsym $mod+y workspace number $ws5
+bindsym $mod+m workspace number $ws6
+bindsym $mod+comma workspace number $ws7
+bindsym $mod+period workspace number $ws8
+bindsym $mod+slash workspace number $ws9
+bindsym $mod+n workspace number $ws10
+bindsym $mod+1 workspace number $ws1
+bindsym $mod+2 workspace number $ws2
+bindsym $mod+3 workspace number $ws3
+bindsym $mod+4 workspace number $ws4
+bindsym $mod+5 workspace number $ws5
+bindsym $mod+6 workspace number $ws6
+bindsym $mod+7 workspace number $ws7
+bindsym $mod+8 workspace number $ws8
+bindsym $mod+9 workspace number $ws9
+bindsym $mod+0 workspace number $ws10
+
+# Move focused container to workspace
+bindsym $mod+Shift+u move container to workspace number $ws1
+bindsym $mod+Shift+i move container to workspace number $ws2
+bindsym $mod+Shift+o move container to workspace number $ws3
+bindsym $mod+Shift+p move container to workspace number $ws4
+bindsym $mod+Shift+y move container to workspace number $ws5
+bindsym $mod+Shift+m move container to workspace number $ws6
+bindsym $mod+Shift+comma move container to workspace number $ws7
+bindsym $mod+Shift+period move container to workspace number $ws8
+bindsym $mod+Shift+slash move container to workspace number $ws9
+bindsym $mod+Shift+n move container to workspace number $ws10
+bindsym $mod+Shift+1 move container to workspace number $ws1
+bindsym $mod+Shift+2 move container to workspace number $ws2
+bindsym $mod+Shift+3 move container to workspace number $ws3
+bindsym $mod+Shift+4 move container to workspace number $ws4
+bindsym $mod+Shift+5 move container to workspace number $ws5
+bindsym $mod+Shift+6 move container to workspace number $ws6
+bindsym $mod+Shift+7 move container to workspace number $ws7
+bindsym $mod+Shift+8 move container to workspace number $ws8
+bindsym $mod+Shift+9 move container to workspace number $ws9
+bindsym $mod+Shift+0 move container to workspace number $ws10
+
+# Move workspace to output
+bindsym $mod+Control+Shift+h move workspace to output left
+bindsym $mod+Control+Shift+l move workspace to output right
+
+# Scratchpad
+bindsym $mod+minus scratchpad show
+bindsym $mod+Shift+minus move scratchpad
+
+# Resize mode
+bindsym $mod+r mode "resize"
+mode "resize" {
+        # Resize
+        bindsym h resize shrink width 10 px or 10 ppt
+        bindsym j resize grow height 10 px or 10 ppt
+        bindsym k resize shrink height 10 px or 10 ppt
+        bindsym l resize grow width 10 px or 10 ppt
+        bindsym Left resize shrink width 10 px or 10 ppt
+        bindsym Down resize grow height 10 px or 10 ppt
+        bindsym Up resize shrink height 10 px or 10 ppt
+        bindsym Right resize grow width 10 px or 10 ppt
+
+        # Back to default mode
+        bindsym Return mode "default"
+        bindsym Escape mode "default"
+        bindsym $mod+r mode "default"
+}
+
+###########################
+### I3bar configuration ###
+###########################
+
+bar {
+        # Basic settings
+        position top
+        font pango:CaskaydiaCove NFM 15px
+
+        # I3blocks
+        status_command I3BLOCKS_SCRIPT_DIR=~/.config/i3blocks/scripts i3blocks
+
+        colors {
+            # Background and foreground
+            background #000000
+            statusline #cccccc
+
+            #class             border  backgr. text
+            focused_workspace  #222222 #222222 #ffffff
+            active_workspace   #1a1a1a #1a1a1a #aaaaaa
+            inactive_workspace #000000 #000000 #aaaaaa
+            urgent_workspace   #550000 #550000 #ffffff
+        }
+}
