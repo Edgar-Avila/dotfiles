@@ -1,0 +1,8 @@
+#!/usr/bin/env sh
+
+top -bn1 |
+    awk -F',' '/Cpu\(s\)/ {
+      for (i=1;i<=NF;i++)
+        if ($i ~ /id/)
+          print 100 - $i + 0
+    }'

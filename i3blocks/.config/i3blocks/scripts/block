@@ -1,0 +1,14 @@
+#!/usr/bin/env sh
+
+bg_color="$1"
+text_color="$2"
+icon="$3"
+text="$4"
+
+echo "<span foreground='$bg_color' background='#000000' size='x-large'></span>\
+<span background='$bg_color'> \
+<span foreground='$text_color' size='large'>$icon</span> \
+<span foreground='$text_color' size='small' rise='2pt'>$text</span> \
+</span>\
+<span background='$bg_color' foreground='#000000' size='x-large'></span>"
+

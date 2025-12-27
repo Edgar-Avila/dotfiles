@@ -1,0 +1,4 @@
+#!/usr/bin/env sh
+
+xrandr --verbose | awk '/Brightness/ { print $2; exit }'
+
