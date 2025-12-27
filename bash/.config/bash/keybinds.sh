@@ -1,0 +1,2 @@
+bind '"\C-f":"tmux-sessionizer\n"'
+
