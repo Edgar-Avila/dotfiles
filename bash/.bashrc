@@ -27,4 +27,3 @@ source ~/.config/bash/keybinds.sh
 
 # Tool-specific integrations
 source ~/.config/bash/tools.sh
-

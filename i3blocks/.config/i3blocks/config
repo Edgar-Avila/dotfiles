@@ -3,34 +3,34 @@ separator_block_width=0
 markup=pango
 
 [volume]
-command="$I3BLOCKS_SCRIPT_DIR/block" "#468FAF" "#EAF6FB" "" "$("$I3BLOCKS_SCRIPT_DIR/volume")"
+command="$I3BLOCKS_SCRIPT_DIR/block" "#689d6a" "#ebdbb2" "" "$("$I3BLOCKS_SCRIPT_DIR/volume")"
 interval=once
 signal=10
 
 [memory]
-command="$I3BLOCKS_SCRIPT_DIR/block" "#2C7DA0" "#EAF6FB" "󰍛" "$("$I3BLOCKS_SCRIPT_DIR/memory")"
+command="$I3BLOCKS_SCRIPT_DIR/block" "#458588" "#ebdbb2" "󰍛" "$("$I3BLOCKS_SCRIPT_DIR/memory")"
 interval=300
 
 [disk]
-command="$I3BLOCKS_SCRIPT_DIR/block" "#2A6F97" "#EAF6FB" "" "$("$I3BLOCKS_SCRIPT_DIR/disk")"
+command="$I3BLOCKS_SCRIPT_DIR/block" "#b16286" "#ebdbb2" "" "$("$I3BLOCKS_SCRIPT_DIR/disk")"
 interval=3600
 
 [cpu_usage]
-command="$I3BLOCKS_SCRIPT_DIR/block" "#014F86" "#EAF6FB" "" "$("$I3BLOCKS_SCRIPT_DIR/cpu_usage")%"
+command="$I3BLOCKS_SCRIPT_DIR/block" "#d65d0e" "#ebdbb2" "" "$("$I3BLOCKS_SCRIPT_DIR/cpu_usage")%"
 interval=60
 separator=false
 
 [date]
-command="$I3BLOCKS_SCRIPT_DIR/block" "#01497C" "#EAF6FB" "" "$(date +%Y-%m-%d)"
+command="$I3BLOCKS_SCRIPT_DIR/block" "#d79921" "#282828" "" "$(date +%Y-%m-%d)"
 interval=1800
 
 [time]
-command="$I3BLOCKS_SCRIPT_DIR/block" "#013A63" "#EAF6FB" "" "$(date +%H:%M:%S)"
+command="$I3BLOCKS_SCRIPT_DIR/block" "#98971a" "#282828" "" "$(date +%H:%M:%S)"
 interval=5
 separator=false
 
 [brightness]
-command="$I3BLOCKS_SCRIPT_DIR/block" "#012A4A" "#EAF6FB" "" "$("$I3BLOCKS_SCRIPT_DIR/brightness")"
+command="$I3BLOCKS_SCRIPT_DIR/block" "#fabd2f" "#282828" "" "$("$I3BLOCKS_SCRIPT_DIR/brightness")"
 interval=once
 separator=false
 signal=11

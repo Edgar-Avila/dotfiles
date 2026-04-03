@@ -47,7 +47,7 @@ tiling_drag modifier titlebar
 ########################
 exec --no-startup-id dex --autostart --environment i3
 exec_always --no-startup-id picom -b --config ~/.config/picom/picom.conf
-exec_always --no-startup-id feh --bg-scale ~/wallpapers/minimalist-pokemon-starters.png
+exec_always --no-startup-id feh --bg-scale ~/wallpapers/gruvbox-pacman.png
 exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock -c 000000 --nofork
 exec --no-startup-id nm-applet
 exec --no-startup-id setxkbmap -option compose:caps 
@@ -223,21 +223,21 @@ bar {
         # Basic settings
         position top
         font pango:CaskaydiaCove NFM 15px
-        mode hide
-        hidden_state hide
+        # mode hide
+        # hidden_state hide
 
         # I3blocks
         status_command I3BLOCKS_SCRIPT_DIR=~/.config/i3blocks/scripts i3blocks
 
         colors {
-            # Background and foreground
-            background #000000
-            statusline #cccccc
+        # Background and foreground
+        background #282828
+        statusline #3c3836
 
-            #class             border  backgr. text
-            focused_workspace  #222222 #222222 #ffffff
-            active_workspace   #1a1a1a #1a1a1a #aaaaaa
-            inactive_workspace #000000 #000000 #aaaaaa
-            urgent_workspace   #550000 #550000 #ffffff
+        # class               border  backgr.  text
+        focused_workspace     #fabd2f #fabd2f  #282828
+        active_workspace      #3c3836 #3c3836  #ebdbb2
+        inactive_workspace    #1d2021 #1d2021  #a89984
+        urgent_workspace      #fb4934 #fb4934  #282828
         }
 }

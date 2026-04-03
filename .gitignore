@@ -1,3 +1,4 @@
 bash/.config/bash/local.sh
 emacs/.config/emacs/*
 !emacs/.config/emacs/init.el
+!emacs/.config/emacs/stack
